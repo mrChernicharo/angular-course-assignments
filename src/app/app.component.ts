@@ -3,13 +3,27 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styles: [`
+    div.panel {
+      text-align: center;
+      margin: 2px 30px;
+    }
+    .white-text {
+      color: white;
+      font-weight: bold;
+    }
+  `]
 })
 export class AppComponent {
-  username: string = '';
-  // isEmpty: boolean = true;
+  password: string = 'avocado';
+  displayPassword: boolean = false;
+  buttonLogs = [];
 
-  resetInput() {
-    this.username = '';
+
+  onButtonClick () {
+    this.buttonLogs.push(`${this.buttonLogs.length}`)
+    this.displayPassword = !this.displayPassword;
+    console.log(this.buttonLogs)
   }
+
 }
