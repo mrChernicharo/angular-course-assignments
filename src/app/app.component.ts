@@ -3,27 +3,24 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styles: [`
-    div.panel {
-      text-align: center;
-      margin: 2px 30px;
-    }
-    .white-text {
-      color: white;
-      font-weight: bold;
-    }
-  `]
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  password: string = 'avocado';
-  displayPassword: boolean = false;
-  buttonLogs = [];
+  numbers: number[] = [];
+  oddNumbers: number[] = [];
+  evenNumbers: number[] = [];
 
+  onIntervalFired(firedInterval: number) {
+    this.numbers.push(firedInterval);
+    console.log(this.numbers);
+    // console.log(firedInterval)
 
-  onButtonClick () {
-    this.buttonLogs.push(`${this.buttonLogs.length}`)
-    this.displayPassword = !this.displayPassword;
-    console.log(this.buttonLogs)
+    firedInterval % 2 === 0 ? this.evenNumbers.push(firedInterval) : this.oddNumbers.push(firedInterval);
   }
 
+  onGameReset() {
+    this.numbers = [];
+    this.evenNumbers.splice(0, this.evenNumbers.length);
+    this.oddNumbers.splice(0, this.oddNumbers.length);
+  }
 }
