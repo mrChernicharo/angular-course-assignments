@@ -6,21 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  numbers: number[] = [];
-  oddNumbers: number[] = [];
-  evenNumbers: number[] = [];
+  activeUsers = ['Max', 'Anna'];
+  inactiveUsers = ['Chris', 'Manu'];
 
-  onIntervalFired(firedInterval: number) {
-    this.numbers.push(firedInterval);
-    console.log(this.numbers);
-    // console.log(firedInterval)
-
-    firedInterval % 2 === 0 ? this.evenNumbers.push(firedInterval) : this.oddNumbers.push(firedInterval);
+  onSetToInactive(id: number) {
+    this.inactiveUsers.push(this.activeUsers[id]);
+    this.activeUsers.splice(id, 1);
   }
 
-  onGameReset() {
-    this.numbers = [];
-    this.evenNumbers.splice(0, this.evenNumbers.length);
-    this.oddNumbers.splice(0, this.oddNumbers.length);
+  onSetToActive(id: number) {
+    this.activeUsers.push(this.inactiveUsers[id]);
+    this.inactiveUsers.splice(id, 1);
   }
 }
