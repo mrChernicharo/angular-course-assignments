@@ -1,79 +1,59 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <!-- Add a Form with the following Inputs (and Validators)
-           1) Mail address (should not be empty and should be an email address)
-           2) A Dropdown which allows the user to select from three different Subscriptions ("Basic", "Advanced", "Pro")
-              Set "Advanced" as Default
-           3) A Password field (should not be empty)
-           4) A Submit Button
+      <!--
+          Create a Form with the following Controls and Validators
+          1) Project Name (should not be empty)
+          2) Mail (should not be a empty and a valid email)
+          3) Project Status Dropdown, with three values: 'Stable', 'Critical', 'Finished'
+          4) Submit Button
 
-           Display a warning message if the Form is invalid AND was touched. Display a warning message below each input if it's invalid.
+          Add your own Validator which doesn't allow "Test" as a Project Name
 
-           Upon submitting the form, you should simply print the Value of the Form to the Console.
-           Optionally, display it in your template.
+          Also implement that Validator as an async Validator (replace the other one)
+
+          Upon submitting the form, simply print the value to the console
       -->
-      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="projectName">Project Name</label>
+          <input
+            type="text"
+            name="projectName"
+            id="projectName"
+            class="form-control"
+            formControlName="projectName">
+        </div>
+
         <div class="form-group">
           <label for="email">Email</label>
           <input
-            class="form-control"
-            type="email"
+            type="text"
             name="email"
-            ngModel
-            email
-            required
-            #email=ngModel
-            >
-        </div>
-        <span class="help-block" *ngIf="!email.valid && email.touched">Please my son, enter a valid email addres</span>
-
-        <div class="form-group">
-          <label for="subscription">Choose a subscription</label>
-          <select
-            name="subscription"
-            id="subscription"
+            id="email"
             class="form-control"
-            [ngModel]="subscriptions[1]"
+            formControlName="email">
+        </div>
+
+        <div class="form-group" >
+          <label for="status">Project Status</label>
+          <select
+            type="text"
+            name="status"
+            id="status"
+            class="form-control"
+            formControlName="status"
             >
             <option
-              *ngFor="let subscription of subscriptions"
-              [value]="subscription"
-              >{{ subscription }}</option>
+              *ngFor="let project of statusArray"
+              [value]="project">
+              {{ project }}
+            </option>
           </select>
         </div>
-
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            class="form-control"
-            ngModel
-            required
-            #password="ngModel"
-            >
-        </div>
-        <span class="help-block" *ngIf="!password.valid && password.touched">Please my son, enter a valid password</span>
-        <span class="help-block" *ngIf="!f.valid && f.dirty">There's stuff missing in this form</span>
-
-        <button
-          class="btn btn-success"
-          type="submit"
-          [disabled]="!f.valid">Submit</button>
+        <button class="btn btn-success" type="submit">Submit</button>
       </form>
 
-
-    </div>
-  </div>
-
-  <div class="row" *ngIf="submitted">
-    <div class="col-xs-12">
-      <h3>Sent Data</h3>
-      <p>Email: {{ data.email }}</p>
-      <p>Subscription: {{ data.subscription }}</p>
-      <p>Password: {{ data.password }}</p>
     </div>
   </div>
 </div>
