@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "assignment-07": {
+    "assignment-08": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/assignment-07",
+            "outputPath": "dist/assignment-08",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -51,18 +51,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "assignment-07:build"
+            "browserTarget": "assignment-08:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "assignment-07:build:production"
+              "browserTarget": "assignment-08:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "assignment-07:build"
+            "browserTarget": "assignment-08:build"
           }
         },
         "test": {
@@ -96,7 +96,7 @@
         }
       }
     },
-    "assignment-07-e2e": {
+    "assignment-08-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -104,7 +104,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "assignment-07:serve"
+            "devServerTarget": "assignment-08:serve"
           }
         },
         "lint": {
@@ -119,5 +119,5 @@
       }
     }
   },
-  "defaultProject": "assignment-07"
+  "defaultProject": "assignment-08"
 }

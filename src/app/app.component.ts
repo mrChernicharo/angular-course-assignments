@@ -1,54 +1,56 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-
-import { CustomValidators } from './custom-validators';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  projectForm: FormGroup;
-  statusArray = ['Stable', 'Critical', 'Finished'];
-  unallowedProject = ['Test', 'Teste'];
-  unallowedEmails = ['test@test.com', 'string7dev@gmail.com'];
-
-
-  ngOnInit() {
-    this.projectForm = new FormGroup({
-      'projectName': new FormControl(null, [Validators.required, CustomValidators.invalidProjectName]),
-      'email': new FormControl(null, [Validators.required, Validators.email], CustomValidators.asyncInvalidEmail),
-      'status': new FormControl(null)
-    })
-    this.projectForm.statusChanges.subscribe(
-      (status) => console.log(status)
-    )
+export class AppComponent {
+  appStatus = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('stable');
+    }, 2000);
+  });
+  servers = [
+    {
+      instanceType: 'medium',
+      name: 'Production',
+      status: 'stable',
+      started: new Date(15, 1, 2017)
+    },
+    {
+      instanceType: 'large',
+      name: 'User Database',
+      status: 'stable',
+      started: new Date(15, 1, 2017)
+    },
+    {
+      instanceType: 'small',
+      name: 'Development Server',
+      status: 'offline',
+      started: new Date(15, 1, 2017)
+    },
+    {
+      instanceType: 'small',
+      name: 'Testing Environment Server',
+      status: 'stable',
+      started: new Date(15, 1, 2017)
+    }
+  ];
+  filteredStatus = '';
+  getStatusClasses(server: {instanceType: string, name: string, status: string, started: Date}) {
+    return {
+      'list-group-item-success': server.status === 'stable',
+      'list-group-item-warning': server.status === 'offline',
+      'list-group-item-danger': server.status === 'critical'
+    };
   }
-
-  onSubmit() {
-    console.log(this.projectForm)
+  onAddServer() {
+    this.servers.push({
+      instanceType: 'small',
+      name: 'New Server',
+      status: 'stable',
+      started: new Date(15, 1, 2017)
+    });
   }
-
-  // unallowedProjectName(control: FormControl): {[key: string]: boolean} {
-  //   if (this.unallowedProject.find(item => item === control.value)) {
-  //     return {'nameIsUnallowed': true};
-  //   } else {
-  //     return null;
-  //   }
-  // }
-
-  // unallowedEmail(control: FormControl): Promise<any> | Observable<any> {
-  //   const promise = new Promise<any>((resolve, reject) => {
-  //     setTimeout(() => {
-  //       if (control.value === 'test@test.com') {
-  //         resolve({emailIsUnallowed: true})
-  //       } else {
-  //         resolve(null)
-  //       }
-  //     }, 2000)
-  //   })
-  //   return promise;
-  // }
 }
